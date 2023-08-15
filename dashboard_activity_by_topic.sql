@@ -1,11 +1,11 @@
-select 
-  r.name,
-  a.topic,
-  count(*)
-from activity a
-left join core_user c on (a.user_id = c.id)
-left join report_dashboard r on (a.model_id = r.id)
-left join report_card cc on (a.model_id = cc.id)
-where r.name is not null
-group by 1,2
-order by 1
+SELECT
+    dashboard.name,
+    activity.topic,
+    COUNT(*) AS count
+FROM activity AS activity
+LEFT JOIN core_user ON (activity.user_id = core_user.id)
+LEFT JOIN report_dashboard AS dashboard ON (activity.model_id = dashboard.id)
+LEFT JOIN report_card AS r_card ON (activity.model_id = r_card.id)
+WHERE dashboard.name IS NOT NULL
+GROUP BY 1, 2
+ORDER BY 1
